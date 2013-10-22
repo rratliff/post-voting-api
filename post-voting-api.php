@@ -57,7 +57,7 @@ if(!class_exists('Post_Voting_API'))
         {
             header("Content-Type: application/json");
             $postslist = array();
-            foreach (get_posts() as $post) {
+            foreach (get_posts(array('posts_per_page'=>-1)) as $post) {
                 $post_new = array();
                 $post_new["id"] = $post->ID;
                 $post_new["title"] = $post->post_title;
