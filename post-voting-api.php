@@ -50,7 +50,7 @@ if(!class_exists('Post_Voting_API'))
             $vote_count = $this->get_meta_key($id);
             if (empty($vote_count))
                 return 0;
-            return $vote_count;
+            return intval($vote_count);
         }
 
         public function getposts()
@@ -75,16 +75,16 @@ if(!class_exists('Post_Voting_API'))
                 echo 'false';
                 exit;
             }
-            if (null == get_post($_POST['id'])) {
+            $id = intval($_POST['id']);
+            if (null == get_post($id)) {
                 echo 'false';
                 exit;
             }
-            $vote_count = $this->get_meta_key($_POST['id']);
+            $vote_count = $this->get_meta_key($id);
             if (empty($vote_count)) {
-                add_post_meta($_POST['id'], $this->post_meta_key, 1, TRUE);
+                add_post_meta($id, $this->post_meta_key, 1, TRUE);
             }
-            update_post_meta($_POST['id'], $this->post_meta_key,
-                $vote_count + 1);
+            update_post_meta($id, $this->post_meta_key, $vote_count + 1);
 
             echo 'true';
             exit;
