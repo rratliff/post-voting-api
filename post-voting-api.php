@@ -50,7 +50,7 @@ if(!class_exists('Post_Voting_API'))
             $vote_count = $this->get_meta_key($id);
             if (empty($vote_count))
                 return 0;
-            return intval($vote_count);
+            return (int) $vote_count;
         }
 
         public function getposts()
@@ -75,7 +75,7 @@ if(!class_exists('Post_Voting_API'))
                 echo 'false';
                 exit;
             }
-            $id = intval($_POST['id']);
+            $id = (int) $_POST['id'];
             if (null == get_post($id)) {
                 echo 'false';
                 exit;
