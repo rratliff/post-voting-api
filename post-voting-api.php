@@ -5,7 +5,7 @@
  */
 /*
 Plugin Name: Post Voting API
-Plugin URI: http://bobbyratliff.nfshost.com/
+Plugin URI: http://bobbyratliff.nfshost.com/postvoting/
 Description: Post rating API that relies on post meta to store vote count.
 Version: 0.1
 Author: Robert Ratliff

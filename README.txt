@@ -23,3 +23,7 @@ Parameters: id
 Output:
 `true` on success, `false` on failure. (Note: both these responses will have
 HTTP 200 status code.)
+
+== Example ==
+
+For an example of the API in use, see http://bobbyratliff.nfshost.com/postvoting/
