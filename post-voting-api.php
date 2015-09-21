@@ -62,6 +62,7 @@ if(!class_exists('Post_Voting_API'))
                 $post_new["id"] = $post->ID;
                 $post_new["title"] = $post->post_title;
                 $post_new["votes"] = $this->get_post_votes($post->ID);
+                $post_new["date"] = $post->post_date_gmt;
                 array_push($postslist, $post_new);
             }
             echo json_encode($postslist);
