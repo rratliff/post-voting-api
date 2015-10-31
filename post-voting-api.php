@@ -53,17 +53,21 @@ if(!class_exists('Post_Voting_API'))
             return (int) $vote_count;
         }
 
+        private function get_post_dto($post) {
+            $post_new = array();
+            $post_new["id"] = $post->ID;
+            $post_new["title"] = $post->post_title;
+            $post_new["votes"] = $this->get_post_votes($post->ID);
+            $post_new["date"] = $post->post_date_gmt;
+            return $post_new;
+        }
+
         public function getposts()
         {
             header("Content-Type: application/json");
             $postslist = array();
             foreach (get_posts(array('posts_per_page'=>-1)) as $post) {
-                $post_new = array();
-                $post_new["id"] = $post->ID;
-                $post_new["title"] = $post->post_title;
-                $post_new["votes"] = $this->get_post_votes($post->ID);
-                $post_new["date"] = $post->post_date_gmt;
-                array_push($postslist, $post_new);
+                array_push($postslist, $this->get_post_dto($post));
             }
             echo json_encode($postslist);
             exit;
@@ -73,12 +77,13 @@ if(!class_exists('Post_Voting_API'))
         {
             if (!isset($_POST['id']))
             {
-                echo 'false';
+                status_header(400);
                 exit;
             }
             $id = (int) $_POST['id'];
-            if (null == get_post($id)) {
-                echo 'false';
+            $post = get_post($id);
+            if (null == $post) {
+                status_header(404);
                 exit;
             }
             $vote_count = $this->get_meta_key($id);
@@ -87,7 +92,8 @@ if(!class_exists('Post_Voting_API'))
             }
             update_post_meta($id, $this->post_meta_key, $vote_count + 1);
 
-            echo 'true';
+            header("Content-Type: application/json");
+            echo json_encode($this->get_post_dto($post));
             exit;
         }
     }
