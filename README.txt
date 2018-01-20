@@ -17,13 +17,22 @@ A JSON array of post objects, each with the following properties:
   - id
   - title
   - votes
+  - date
 
 Action: addvote
 Parameters: id
 Output:
-`true` on success, `false` on failure. (Note: both these responses will have
-HTTP 200 status code.)
+the modified post object.
 
 == Example ==
 
 For an example of the API in use, see http://bobbyratliff.nfshost.com/postvoting/
+
+== Development environment ==
+
+You can develop the plugin using wordpress inside Docker. To deploy the plugin to the container, re-run the *cp* command.
+
+docker build -t my-wordpress --file Dockerfile .
+mkdir -p wordpress/wp-content/plugins/post-voting-api
+cp README.txt post-voting-api.php wordpress/wp-content/plugins/post-voting-api
+docker-compose up
